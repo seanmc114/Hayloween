@@ -3,35 +3,25 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>TURBO: MTW Sample (Ser/Tener/Estar)</title>
+  <title>HAYLOWEEN</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* Hide the dead landing bits so they never block play */
+    /* Keep old landing elements for compatibility but never show them */
     #tense-buttons, #unlock-bar { display: none !important; }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1><span class="turbo">TURBO</span>: MTW Sample (Ser/Tener/Estar)</h1>
+    <h1><span class="turbo">HAYLOWEEN</span></h1>
 
-    <!-- Kept for compatibility with script.js (hidden above) -->
-    <div id="tense-buttons" role="toolbar" aria-label="Tense selection">
-      <button class="tense-button active" data-tense="Present">Present</button>
-      <button class="tense-button" data-tense="Past">Past</button>
-      <button class="tense-button" data-tense="Future">Future</button>
-    </div>
+    <!-- kept (hidden) so script.js references don’t break -->
+    <div id="tense-buttons" role="toolbar" aria-label="Tense selection" style="display:none;"></div>
+    <div id="unlock-bar" style="display:none;"></div>
 
-    <!-- Kept for compatibility with script.js (hidden above) -->
-    <div id="unlock-bar">
-      <input id="codeInput" placeholder="Enter teacher code" />
-      <button id="codeBtn">Unlock</button>
-      <span id="codeMsg" aria-live="polite"></span>
-    </div>
-
-    <!-- This shows your game’s mode buttons (Homework, Mon/Tue/Wed, Friday) -->
+    <!-- MENU (students choose a mode; timer starts after they choose) -->
     <div id="mode-list" class="modes"></div>
 
-    <!-- Game screen (shown after you pick a mode) -->
+    <!-- GAME (shown after a mode is chosen) -->
     <div id="game" style="display:none;">
       <div id="timer" aria-live="polite">Time: 0s</div>
 
@@ -54,8 +44,6 @@
     </div>
   </div>
 
-  <!-- Your existing logic; no changes needed -->
   <script src="script.js"></script>
-  <!-- No auto-start here: students will land on the menu and choose a mode -->
 </body>
 </html>
