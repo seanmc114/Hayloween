@@ -145,6 +145,7 @@ const PHRASES = {
   // Title
   document.title = `TURBO: ${CONFIG.title}`;
   $("h1").innerHTML = `<span class="turbo">TURBO</span>: ${CONFIG.title}`;
+  const ub = $("#unlock-bar"); if (ub) ub.style.display = "none";
 
   setTenseButtons();
   $("#codeBtn").onclick = handleCode;
@@ -152,12 +153,7 @@ const PHRASES = {
 
   // ----- Unlock state -----
   function keyUnlocked(day){ return `turbo_mtw_unlocked_${CONFIG.title}_${day}`; }
-  function isUnlocked(day){
-    if (day === "D1") return true;      // Monday always open
-    if (day === "HOMEWORK") return true;
-    const v = localStorage.getItem(keyUnlocked(day));
-    return v === "1";
-  }
+  function isUnlocked(day){ return true; }
   function unlock(day){ localStorage.setItem(keyUnlocked(day), "1"); }
 
   function handleCode(){
