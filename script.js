@@ -4,7 +4,7 @@
 
   // ----- CONFIG -----
   const CONFIG = {
-    title: "Days and School Subjects",
+    title: "Hayloween",
     // Sample codes — change these in production
     codes: { D2: "MTW-D2-OPEN", D3: "MTW-D3-OPEN", FRIDAY: "MTW-FRI-OPEN" },
     days: {
@@ -48,42 +48,7 @@
   
   // ----- PHRASES for Days & School Subjects -----
   const PHRASES = {
-    D1: [
-      {en:"Monday", es:["lunes"]},
-      {en:"Tuesday", es:["martes"]},
-      {en:"Wednesday", es:["miércoles","miercoles"]},
-      {en:"Thursday", es:["jueves"]},
-      {en:"Friday", es:["viernes"]},
-      {en:"Saturday", es:["sábado","sabado"]},
-      {en:"Sunday", es:["domingo"]},
-      {en:"Today", es:["hoy"]},
-      {en:"Tomorrow", es:["mañana","manana"]},
-      {en:"Yesterday", es:["ayer"]},
-      {en:"The day before yesterday", es:["anteayer"]},
-      {en:"The day after tomorrow", es:["pasado mañana","pasado manana"]}
-    ],
-    D2: [
-      {en:"English (subject)", es:["inglés","ingles"]},
-      {en:"Irish (subject)", es:["irlandés","irlandes","gaélico","gaelico","gaélico irlandés","gaelico irlandes"]},
-      {en:"Maths", es:["matemáticas","matematicas","mates"]},
-      {en:"Spanish", es:["español","espanol","castellano"]},
-      {en:"French", es:["francés","frances"]},
-      {en:"History", es:["historia"]},
-      {en:"Geography", es:["geografía","geografia"]},
-      {en:"P.E.", es:["educación física","educacion fisica"]},
-      {en:"German", es:["alemán","aleman"]},
-      {en:"Science", es:["ciencias","ciencia"]}
-    ],
-    D3: [
-      {en:"Business", es:["negocios","empresa","estudios empresariales"]},
-      {en:"Art", es:["arte","educación plástica","educacion plastica"]},
-      {en:"Physics", es:["física","fisica"]},
-      {en:"Biology", es:["biología","biologia"]},
-      {en:"IT", es:["informática","informatica","tecnología","tecnologia","computación","computacion","tic"]},
-      {en:"CSPE (Civics)", es:["educación cívica","educacion civica","ciudadanía","ciudadania","educación para la ciudadanía","educacion para la ciudadania"]},
-      {en:"Religion", es:["religión","religion"]}
-    ]
-  };
+  
 // ----- DB -----
   const DB = {
     ser:{present:["soy","eres","es","es","somos","sois","son"],
