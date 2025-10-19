@@ -48,7 +48,71 @@
   
   // ----- PHRASES for Days & School Subjects -----
   const PHRASES = {
-  
+  // HALLOWEEN + HAY/NO HAY + NUMBERS (1–20)
+const PHRASES = {
+  // D1 — Core Halloween vocab (single words / noun phrases)
+  D1: [
+    { en: "pumpkin",            es: ["calabaza"] },
+    { en: "ghost",              es: ["fantasma"] },
+    { en: "witch",              es: ["bruja"] },
+    { en: "skeleton",           es: ["esqueleto"] },
+    { en: "monster",            es: ["monstruo"] },
+    { en: "vampire",            es: ["vampiro"] },
+    { en: "zombie",             es: ["zombi","zombie"] },
+    { en: "bat",                es: ["murciélago","murcielago"] },
+    { en: "black cat",          es: ["gato negro"] },
+    { en: "spider",             es: ["araña","arana"] },
+    { en: "spider web",         es: ["telaraña","telarana"] },
+    { en: "candle",             es: ["vela"] },
+    { en: "mask",               es: ["máscara","mascara"] },
+    { en: "potion",             es: ["poción","pocion"] },
+    { en: "broom",              es: ["escoba"] },
+    { en: "costume",            es: ["disfraz"] },
+    { en: "haunted house",      es: ["casa encantada"] },
+    { en: "tombstone",          es: ["lápida","lapida"] },
+    { en: "graveyard",          es: ["cementerio"] },
+    { en: "cauldron",           es: ["caldero"] }
+  ],
+
+  // D2 — Hay / No hay sentences (juniors-friendly, singular & small plurals)
+  D2: [
+    { en: "There is a pumpkin.",                  es: ["Hay una calabaza."] },
+    { en: "There isn’t a ghost.",                 es: ["No hay un fantasma."] },
+    { en: "There is a witch at the door.",        es: ["Hay una bruja en la puerta."] },
+    { en: "There isn’t a monster here.",          es: ["No hay un monstruo aquí.","No hay un monstruo aqui"] },
+    { en: "There are two spiders.",               es: ["Hay dos arañas.","Hay 2 arañas","Hay dos aranas","Hay 2 aranas"] },
+    { en: "There aren’t three bats.",             es: ["No hay tres murciélagos.","No hay 3 murciélagos","No hay tres murcielagos","No hay 3 murcielagos"] },
+    { en: "There are four candles on the table.", es: ["Hay cuatro velas en la mesa.","Hay 4 velas en la mesa"] },
+    { en: "There isn’t a vampire in the room.",   es: ["No hay un vampiro en la habitación.","No hay un vampiro en la habitacion"] },
+    { en: "There are five ghosts.",               es: ["Hay cinco fantasmas.","Hay 5 fantasmas"] },
+    { en: "There aren’t six zombies.",            es: ["No hay seis zombis.","No hay 6 zombis","No hay seis zombies","No hay 6 zombies"] }
+  ],
+
+  // D3 — Numbers 1–20 (words; with accentless fallbacks where needed)
+  D3: [
+    { en: "one (1)",        es: ["uno"] },
+    { en: "two (2)",        es: ["dos"] },
+    { en: "three (3)",      es: ["tres"] },
+    { en: "four (4)",       es: ["cuatro"] },
+    { en: "five (5)",       es: ["cinco"] },
+    { en: "six (6)",        es: ["seis"] },
+    { en: "seven (7)",      es: ["siete"] },
+    { en: "eight (8)",      es: ["ocho"] },
+    { en: "nine (9)",       es: ["nueve"] },
+    { en: "ten (10)",       es: ["diez"] },
+    { en: "eleven (11)",    es: ["once"] },
+    { en: "twelve (12)",    es: ["doce"] },
+    { en: "thirteen (13)",  es: ["trece"] },
+    { en: "fourteen (14)",  es: ["catorce"] },
+    { en: "fifteen (15)",   es: ["quince"] },
+    { en: "sixteen (16)",   es: ["dieciséis","dieciseis"] },
+    { en: "seventeen (17)", es: ["diecisiete"] },
+    { en: "eighteen (18)",  es: ["dieciocho"] },
+    { en: "nineteen (19)",  es: ["diecinueve"] },
+    { en: "twenty (20)",    es: ["veinte"] }
+  ]
+};
+
 // ----- DB -----
   const DB = {
     ser:{present:["soy","eres","es","es","somos","sois","son"],
