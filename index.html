@@ -3,33 +3,68 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Hayloween</title>
+  <title>TURBO: MTW Sample (Ser/Tener/Estar)</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Hide the old landing controls so they never block play */
+    #tense-buttons, #unlock-bar { display: none !important; }
+  </style>
 </head>
 <body>
   <div class="container">
-    <h1><span class="turbo">Hayloween</span></h1>
-<div id="mode-list" class="modes" style="display:none;"></div>
+    <h1><span class="turbo">TURBO</span>: MTW Sample (Ser/Tener/Estar)</h1>
+
+    <!-- Kept for compatibility with script.js (hidden above) -->
+    <div id="tense-buttons" role="toolbar" aria-label="Tense selection">
+      <button class="tense-button active" data-tense="Present">Present</button>
+      <button class="tense-button" data-tense="Past">Past</button>
+      <button class="tense-button" data-tense="Future">Future</button>
+    </div>
+
+    <!-- Kept for compatibility with script.js (hidden above) -->
+    <div id="unlock-bar">
+      <input id="codeInput" placeholder="Enter teacher code" />
+      <button id="codeBtn">Unlock</button>
+      <span id="codeMsg" aria-live="polite"></span>
+    </div>
+
+    <div id="mode-list" class="modes"></div>
 
     <div id="game" style="display:none;">
       <div id="timer" aria-live="polite">Time: 0s</div>
 
-      <div id="voice-bar" class="voice-bar" style="display:none;">
-        <button id="read-all">🔊 Read all</button>
-        <label class="auto-read">
+      <div id="voice-bar">
+        <label>
           <input type="checkbox" id="auto-read" />
-          Auto‑read on focus
+          Auto-read questions (English)
         </label>
+        <button id="read-all" type="button">🔊 Read All</button>
       </div>
 
       <div id="questions"></div>
+
       <div class="controls">
-        <button id="submit">Finish & Check</button>
-        <button id="back-button" style="display:none;">Back to Menu</button>
+        <button id="submit" type="button">Finish & Check</button>
+        <button id="back-button" type="button" style="display:none;">Back to Menu</button>
       </div>
+
       <div id="results" aria-live="polite"></div>
     </div>
   </div>
+
   <script src="script.js"></script>
+
+  <!-- Auto-start the game and unlock days; no landing, straight to play -->
+  <script>
+  (function () {
+    // Make sure the menu never blocks: go straight into Homework (all unlocked days)
+    try { unlock('D2'); unlock('D3'); unlock('FRIDAY'); } catch (e) {}
+    try { startMode('HOMEWORK'); } catch (e) {
+      // Fallback: show game area even if something delays init
+      var ml = document.getElementById('mode-list'); if (ml) ml.style.display = 'none';
+      var g  = document.getElementById('game');      if (g)  g.style.display  = 'block';
+    }
+  })();
+  </script>
 </body>
 </html>
