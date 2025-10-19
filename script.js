@@ -1,16 +1,15 @@
-// TURBO: MTW Sample (Ser/Tener/Estar) — voice-enabled, big score
+// HAYLOWEEN — menu-first, all modes unlocked, Friday = mixed from Mon+Tue+Wed
 (()=>{
   const $ = s => document.querySelector(s), $$ = s => Array.from(document.querySelectorAll(s));
 
   // ----- CONFIG -----
   const CONFIG = {
-    title: "Hayloween",
-    // Sample codes — change these in production
-    codes: { D2: "MTW-D2-OPEN", D3: "MTW-D3-OPEN", FRIDAY: "MTW-FRI-OPEN" },
+    title: "HAYLOWEEN",
+    codes: {}, // not used; everything is unlocked
     days: {
-      D1: { label: "Monday — Days & Relative Days" },
-      D2: { label: "Tuesday — School Subjects A" },
-      D3: { label: "Wednesday — School Subjects B" }
+      D1: { label: "Monday — Halloween vocab (1st years)" },
+      D2: { label: "Tuesday — Numbers 1–20" },
+      D3: { label: "Wednesday — HAY + numbers + Halloween (pos/neg/questions)" }
     },
     QUESTIONS_PER_RUN: 10,
     PENALTY_SECONDS: 30
@@ -25,7 +24,7 @@
       const pick = () => {
         const voices = speechSynthesis.getVoices();
         this.english = voices.find(v=>/^en[-_]/i.test(v.lang)) || voices.find(v=>/en/i.test(v.lang)) || voices[0] || null;
-        this.spanish = voices.find(v=>/^es[-_]/i.test(v.lang)) || voices.find(v=>/spanish/i.test(v.name)) || voices.find(v=>/es/i.test(v.lang)) || this.english;
+        this.spanish = voices.find(v=>/^es[-_]/i.test(v.lang)) || voices.find(v=>/es/i.test(v.lang)) || this.english;
       };
       pick();
       window.speechSynthesis.onvoiceschanged = pick;
@@ -35,145 +34,154 @@
       const u = new SpeechSynthesisUtterance(text);
       const voice = lang.startsWith('es') ? (this.spanish || this.english) : (this.english || this.spanish);
       if(voice) u.voice = voice;
-      u.lang = voice?.lang || (lang.startsWith('es') ? 'es-ES' : 'en-GB');
-      try { speechSynthesis.cancel(); } catch(e){}
-      speechSynthesis.speak(u);
+      u.rate = 1; u.pitch = 1; u.volume = 1;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
     }
   };
-  VOICE.init();
 
-  const SR = window.SpeechRecognition || window.webkitSpeechRecognition || null;
-  const srSupported = !!SR;
-
-  
-  // ----- PHRASES for Days & School Subjects -----
+  // ----- WEEK CONTENT -----
   const PHRASES = {
+    // Monday — Halloween vocab
     D1: [
-      {en:"Monday", es:["lunes"]},
-      {en:"Tuesday", es:["martes"]},
-      {en:"Wednesday", es:["miércoles","miercoles"]},
-      {en:"Thursday", es:["jueves"]},
-      {en:"Friday", es:["viernes"]},
-      {en:"Saturday", es:["sábado","sabado"]},
-      {en:"Sunday", es:["domingo"]},
-      {en:"Today", es:["hoy"]},
-      {en:"Tomorrow", es:["mañana","manana"]},
-      {en:"Yesterday", es:["ayer"]},
-      {en:"The day before yesterday", es:["anteayer"]},
-      {en:"The day after tomorrow", es:["pasado mañana","pasado manana"]}
+      {en:"Pumpkin", es:["calabaza"]},
+      {en:"Ghost", es:["fantasma"]},
+      {en:"Witch", es:["bruja"]},
+      {en:"Vampire", es:["vampiro"]},
+      {en:"Skeleton", es:["esqueleto"]},
+      {en:"Spider", es:["araña","arana"]},
+      {en:"Bat", es:["murciélago","murcielago"]},
+      {en:"Black cat", es:["gato negro"]},
+      {en:"Costume", es:["disfraz"]},
+      {en:"Haunted house", es:["casa embrujada"]},
+      {en:"Candy", es:["caramelo","dulce","chuche","golosina"]},
+      {en:"Monster", es:["monstruo"]},
+      {en:"Mummy", es:["momia"]},
+      {en:"Broom", es:["escoba"]},
+      {en:"Mask", es:["máscara","mascara"]},
+      {en:"Zombie", es:["zombi","zombie"]},
+      {en:"Skull", es:["calavera"]},
+      {en:"Lantern", es:["farol"]},
+      {en:"Scarecrow", es:["espantapájaros","espantapajaros"]},
+      {en:"Trick or treat", es:["truco o trato"]}
     ],
+    // Tuesday — Numbers 1–20
     D2: [
-      {en:"English (subject)", es:["inglés","ingles"]},
-      {en:"Irish (subject)", es:["irlandés","irlandes","gaélico","gaelico","gaélico irlandés","gaelico irlandes"]},
-      {en:"Maths", es:["matemáticas","matematicas","mates"]},
-      {en:"Spanish", es:["español","espanol","castellano"]},
-      {en:"French", es:["francés","frances"]},
-      {en:"History", es:["historia"]},
-      {en:"Geography", es:["geografía","geografia"]},
-      {en:"P.E.", es:["educación física","educacion fisica"]},
-      {en:"German", es:["alemán","aleman"]},
-      {en:"Science", es:["ciencias","ciencia"]}
+      {en:"one", es:["uno"]},{en:"two", es:["dos"]},{en:"three", es:["tres"]},{en:"four", es:["cuatro"]},{en:"five", es:["cinco"]},
+      {en:"six", es:["seis"]},{en:"seven", es:["siete"]},{en:"eight", es:["ocho"]},{en:"nine", es:["nueve"]},{en:"ten", es:["diez"]},
+      {en:"eleven", es:["once"]},{en:"twelve", es:["doce"]},{en:"thirteen", es:["trece"]},{en:"fourteen", es:["catorce"]},{en:"fifteen", es:["quince"]},
+      {en:"sixteen", es:["dieciséis","dieciseis"]},{en:"seventeen", es:["diecisiete"]},{en:"eighteen", es:["dieciocho"]},
+      {en:"nineteen", es:["diecinueve"]},{en:"twenty", es:["veinte"]}
     ],
+    // Wednesday — HAY + numbers + Halloween (pos/neg/questions)
     D3: [
-      {en:"Business", es:["negocios","empresa","estudios empresariales"]},
-      {en:"Art", es:["arte","educación plástica","educacion plastica"]},
-      {en:"Physics", es:["física","fisica"]},
-      {en:"Biology", es:["biología","biologia"]},
-      {en:"IT", es:["informática","informatica","tecnología","tecnologia","computación","computacion","tic"]},
-      {en:"CSPE (Civics)", es:["educación cívica","educacion civica","ciudadanía","ciudadania","educación para la ciudadanía","educacion para la ciudadania"]},
-      {en:"Religion", es:["religión","religion"]}
-    ]
+      // positive
+      {en:"There is a pumpkin", es:["hay una calabaza"]},
+      {en:"There are two pumpkins", es:["hay dos calabazas"]},
+      {en:"There are three ghosts", es:["hay tres fantasmas"]},
+      {en:"There is a witch", es:["hay una bruja"]},
+      {en:"There is a black cat", es:["hay un gato negro"]},
+      {en:"There are five spiders", es:["hay cinco arañas","hay cinco aranas"]},
+      {en:"There are four bats", es:["hay cuatro murciélagos","hay cuatro murcielagos"]},
+      {en:"There are ten candies", es:["hay diez caramelos","hay diez dulces"]},
+      // negative
+      {en:"There isn't a vampire", es:["no hay un vampiro"]},
+      {en:"There aren't two mummies", es:["no hay dos momias"]},
+      {en:"There isn't a skull", es:["no hay una calavera"]},
+      {en:"There aren't three monsters", es:["no hay tres monstruos"]},
+      // questions (answers as 'hay ...')
+      {en:"Is there a pumpkin?", es:["hay una calabaza"]},
+      {en:"Are there two ghosts?", es:["hay dos fantasmas"]},
+      {en:"Is there a witch?", es:["hay una bruja"]},
+      {en:"Are there seven spiders?", es:["hay siete arañas","hay siete aranas"]}
+    ],
+    // Friday — filled dynamically as D1 + D2 + D3
+    FRIDAY: []
   };
-// ----- DB -----
+
+  // ----- AUX DATA (unchanged base) -----
   const DB = {
     ser:{present:["soy","eres","es","es","somos","sois","son"],
          past:["fui","fuiste","fue","fue","fuimos","fuisteis","fueron"],
-         future:["seré","serás","será","será","seremos","seréis","serán"]},
+         future:["seré","seras","sera","será","seremos","seréis","seran","serán"]},
     tener:{present:["tengo","tienes","tiene","tiene","tenemos","tenéis","tienen"],
            past:["tuve","tuviste","tuvo","tuvo","tuvimos","tuvisteis","tuvieron"],
-           future:["tendré","tendrás","tendrá","tendrá","tendremos","tendréis","tendrán"]},
-    estar:{present:["estoy","estás","está","está","estamos","estáis","están"],
+           future:["tendré","tendras","tendra","tendrá","tendremos","tendréis","tendran","tendrán"]},
+    estar:{present:["estoy","estás","estas","está","esta","estamos","estáis","estais","están","estan"],
            past:["estuve","estuviste","estuvo","estuvo","estuvimos","estuvisteis","estuvieron"],
-           future:["estaré","estarás","estará","estará","estaremos","estaréis","estarán"]}
+           future:["estaré","estaras","estara","estará","estaremos","estaréis","estareis","estarán","estaran"]}
   };
 
-  // Persons with you clarification
-  const PERSONS = [
-    {label:"I", en:"I", tag:""},
-    {label:"you (sg.)", en:"you", tag:" (you: singular)"},
-    {label:"he", en:"he", tag:""},
-    {label:"she", en:"she", tag:""},
-    {label:"we", en:"we", tag:""},
-    {label:"you (pl.)", en:"you", tag:" (you: plural)"},
-    {label:"they", en:"they", tag:""}
-  ];
-
-  const TENSES = ["Present","Past","Future"];
-  let currentTense = "Present";
+  // ----- STATE -----
+  let currentTense = "Present"; // inert now (tense buttons hidden)
   let currentMode = null;
   let startTime = 0, timerId = null;
 
-  // Title
-  document.title = `TURBO: ${CONFIG.title}`;
-  $("h1").innerHTML = `<span class="turbo">TURBO</span>: ${CONFIG.title}`;
+  // ----- TITLE -----
+  document.title = CONFIG.title;
+  const h1 = document.querySelector("h1");
+  if (h1) h1.innerHTML = `<span class="turbo">${CONFIG.title}</span>`;
 
-  try{ setTenseButtons(); }catch(e){}
-  $("#codeBtn").onclick = handleCode;
-  renderModes(); unlock('D2'); unlock('D3'); unlock('FRIDAY'); startMode('HOMEWORK');
-
-  // ----- Unlock state -----
-  function keyUnlocked(day){ return `turbo_mtw_unlocked_${CONFIG.title}_${day}`; }
-  function isUnlocked(day){
-    if (day === "D1") return true;      // Monday always open
-    if (day === "HOMEWORK") return true;
-    const v = localStorage.getItem(keyUnlocked(day));
-    return v === "1";
+  // Keep in case buttons exist in markup
+  function setTenseButtons(){
+    const btns = $$(".tense-button");
+    btns.forEach(b=>{
+      b.onclick = ()=>{
+        btns.forEach(x=>x.classList.remove("active"));
+        b.classList.add("active");
+        currentTense = b.dataset.tense || "Present";
+        renderModes();
+      };
+    });
   }
+  setTenseButtons();
+
+  // ----- UNLOCK: everything open -----
+  function keyUnlocked(day){ return `turbo_mtw_unlocked_${CONFIG.title}_${day}`; }
+  function isUnlocked(day){ return true; }
   function unlock(day){ localStorage.setItem(keyUnlocked(day), "1"); }
 
+  // If the old code button exists, make it harmless
   function handleCode(){
-    const code = ($("#codeInput").value || "").trim();
-    const msg = $("#codeMsg");
-    const map = CONFIG.codes || {};
-    let matched = null;
-    for (const [day, c] of Object.entries(map)) { if (c === code) { matched = day; break; } }
-    if (!matched) { msg.textContent = "❌ Code not recognised"; return; }
-    if (matched === "FRIDAY") {
-      unlock("D2"); unlock("D3"); unlock("FRIDAY");
-      msg.textContent = "✅ Friday Test (and all days) unlocked!";
-    } else {
-      unlock(matched);
-      if (isUnlocked("D2") && isUnlocked("D3")) unlock("FRIDAY");
-      msg.textContent = `✅ ${CONFIG.days[matched]?.label || matched} unlocked`;
-    }
-    renderModes(); unlock('D2'); unlock('D3'); unlock('FRIDAY'); startMode('HOMEWORK');
-    $("#codeInput").value = "";
+    const m = $("#codeMsg");
+    if (m) m.textContent = "All modes unlocked.";
+    renderModes();
   }
 
-  // ----- Menu -----
+  // ----- MENU -----
+  function makeModeBtn(modeKey, label){
+    const btn = document.createElement("button");
+    const locked = !isUnlocked(modeKey);
+    btn.className = "mode";
+    const best = getBest(currentTense, modeKey);
+    btn.textContent = `${locked ? "🔒" : "🔓"} ${label}${best!=null ? " — Best: "+best.toFixed(1)+"s" : ""}`;
+    btn.onclick = () => { if (!locked) startMode(modeKey); };
+    return btn;
+  }
+
   function renderModes(){
-    const host = $("#mode-list"); host.innerHTML = "";
+    const host = $("#mode-list"); if (!host) return;
+    host.innerHTML = "";
     host.appendChild(makeModeBtn("HOMEWORK", "Homework Tonight (All unlocked days)"));
     host.appendChild(makeModeBtn("D1", CONFIG.days.D1.label));
     host.appendChild(makeModeBtn("D2", CONFIG.days.D2.label));
     host.appendChild(makeModeBtn("D3", CONFIG.days.D3.label));
     host.appendChild(makeModeBtn("FRIDAY", "Friday Test (All week) — unlocks from Wednesday"));
   }
-  function makeModeBtn(modeKey, label){
-    const btn = document.createElement("button"); btn.className = "mode-btn"; btn.dataset.mode = modeKey;
-    const locked = (modeKey==="HOMEWORK") ? false
-                  : (modeKey==="D1") ? false
-                  : (modeKey==="FRIDAY") ? !isUnlocked("FRIDAY") && !(isUnlocked("D2") && isUnlocked("D3"))
-                  : !isUnlocked(modeKey);
-    btn.disabled = locked; 
-    const icon = locked ? "🔒" : "🔓";
-    const best = getBest(currentTense, modeKey);
-    btn.textContent = `${icon} ${label}${best!=null ? " — Best: "+best.toFixed(1)+"s" : ""}`;
-    btn.onclick = () => { if (!locked) startMode(modeKey); };
-    return btn;
+  renderModes();
+
+  // ----- POOL BUILDER -----
+  function buildPoolForMode(modeKey){
+    const d1 = PHRASES.D1.slice();
+    const d2 = PHRASES.D2.slice();
+    const d3 = PHRASES.D3.slice();
+    if (!PHRASES.FRIDAY || !PHRASES.FRIDAY.length) PHRASES.FRIDAY = d1.concat(d2, d3);
+
+    if (modeKey === "HOMEWORK") return d1.concat(d2, d3);
+    if (modeKey === "FRIDAY")  return PHRASES.FRIDAY.slice();
+    return (PHRASES[modeKey] || []).slice();
   }
 
-  // ----- Build quiz -----
+  // ----- QUIZ RUNNER -----
   function startMode(modeKey){
     currentMode = modeKey;
     $("#mode-list").style.display = "none";
@@ -181,203 +189,102 @@
     $("#results").innerHTML = "";
     $("#back-button").style.display = "none";
 
-    const pool = buildPoolForMode(modeKey, currentTense);
+    const pool = buildPoolForMode(modeKey);
     shuffle(pool);
-    const quiz = pool.slice(0, CONFIG.QUESTIONS_PER_RUN);
 
-    const qwrap = $("#questions"); qwrap.innerHTML = "";
+    const LIMIT = CONFIG.QUESTIONS_PER_RUN;
+    const quiz = pool.slice(0, LIMIT).map(item => ({ prompt: item.en, answers: item.es }));
 
-    // Voice bar
-    const vbar = $("#voice-bar");
-    if (VOICE.enabled) {
-      vbar.style.display = "flex";
-      $("#read-all").onclick = () => {
-        let i = 0; const items = quiz.map(q => q.prompt.replace(/\s*\(.*\)\s*$/,''));
-        const next = () => { if (i >= items.length) return; VOICE.speak(items[i], 'en'); i++; setTimeout(next, 1700); };
-        next();
-      };
-    } else vbar.style.display = "none";
-
+    // Render Qs
+    const qHost = $("#questions"); qHost.innerHTML = "";
     quiz.forEach((q,i) => {
-      const row = document.createElement("div");
-      row.className = "q";
+      const row = document.createElement("div"); row.className = "q";
 
       const promptRow = document.createElement("div"); promptRow.className = "prompt-row";
       const p = document.createElement("div"); p.className = "prompt"; p.textContent = `${i+1}. ${q.prompt}`;
-
-      const spk = document.createElement("button"); spk.className = "icon-btn"; spk.textContent = "🔊"; spk.title = "Read this question";
+      const spk = document.createElement("button"); spk.className = "speak-btn"; spk.textContent = "🔊"; spk.title = "Read this question";
       spk.onclick = ()=> VOICE.speak(q.prompt.replace(/\s*\(.*\)\s*$/,''), 'en');
+      promptRow.appendChild(p); promptRow.appendChild(spk);
 
-      const mic = document.createElement("button"); mic.className = "icon-btn"; mic.textContent = "🎤"; mic.title = srSupported ? "Dictate answer (Spanish)" : "Speech recognition not supported";
-      const input = document.createElement("input"); input.type = "text"; input.placeholder = "Type or dictate the Spanish form (e.g., soy)";
-      if (srSupported) {
-        mic.onclick = ()=>{ const rec = new SR(); rec.lang = "es-ES"; rec.interimResults = false; rec.maxAlternatives = 1;
-          mic.disabled = true; mic.textContent = "⏺️…";
-          rec.onresult = e => { const said = e.results[0][0].transcript || ""; input.value = said; };
-          rec.onerror = ()=>{}; rec.onend = ()=>{ mic.disabled=false; mic.textContent="🎤"; };
-          try { rec.start(); } catch(e) { mic.disabled=false; mic.textContent="🎤"; }
-        };
-      } else mic.disabled = true;
+      const inputRow = document.createElement("div"); inputRow.className = "input-row";
+      const input = document.createElement("input"); input.type = "text"; input.autocomplete = "off"; input.spellcheck = false;
+      input.placeholder = "Answer in Spanish…";
+      inputRow.appendChild(input);
 
-      promptRow.appendChild(p); promptRow.appendChild(spk); promptRow.appendChild(mic);
-      row.appendChild(promptRow); row.appendChild(input); qwrap.appendChild(row);
-
-      input.addEventListener('focus', ()=>{ const a = $("#auto-read"); if(a && a.checked) VOICE.speak(q.prompt.replace(/\s*\(.*\)\s*$/,''), 'en'); });
+      row.appendChild(promptRow); row.appendChild(inputRow);
+      qHost.appendChild(row);
     });
 
-    $("#submit").onclick = () => checkAnswers(quiz);
-    startTimer();
-  }
-
-  function buildPoolForMode(modeKey, tense){
-    if (modeKey === "HOMEWORK") {
-      const open = ["D1","D2","D3"].filter(d => isUnlocked(d) || d==="D1");
-      return poolFromDays(open, tense);
-    } else if (modeKey === "FRIDAY") {
-      return poolFromDays(["D1","D2","D3"], tense);
-    } else {
-      return poolFromDays([modeKey], tense);
-    }
-  }
-
-  
-  function poolFromDays(dayKeys, tense){
-    const pool = [];
-    dayKeys.forEach(d => {
-      const list = PHRASES[d] || [];
-      list.forEach(item => pool.push({ prompt: `Type the Spanish: "${item.en}"`, answer: item.es[0], answerList: item.es }));
-    });
-    return pool;
-  }
-
-
-  // ----- Prompts with grammar & you(sg/pl) -----
-  function englishPrompt(verb, tense, person, kind){
-    const subj = person.en, tag = person.tag || "";
-    if (verb === "tener") {
-      if (tense === "Present") {
-        if (kind==="pos") return `${cap(subj)}${tag} have (tener)`;
-        if (kind==="neg") return `${doNegHave(subj, tag)} (tener)`;
-        if (kind==="q")   return `${doQHave(subj, tag)} (tener)`;
-      } else if (tense === "Past") {
-        if (kind==="pos") return `${cap(subj)}${tag} had (tener)`;
-        if (kind==="neg") return `${cap(subj)}${tag} did not have (tener)`;
-        if (kind==="q")   return `Did ${subj}${tag} have? (tener)`;
-      } else {
-        if (kind==="pos") return `${cap(subj)}${tag} will have (tener)`;
-        if (kind==="neg") return `${cap(subj)}${tag} will not have (tener)`;
-        if (kind==="q")   return `Will ${subj}${tag} have? (tener)`;
-      }
-    } else if (verb === "estar" || verb === "ser") {
-      if (tense === "Present") {
-        if (kind==="pos") return `${cap(subj)}${tag} ${bePres(subj)} (${verb})`;
-        if (kind==="neg") return `${cap(subj)}${tag} ${bePresNeg(subj)} (${verb})`;
-        if (kind==="q")   return `${beQPres(person)} (${verb})`;
-      } else if (tense === "Past") {
-        if (kind==="pos") return `${cap(subj)}${tag} ${bePast(subj)} (${verb})`;
-        if (kind==="neg") return `${cap(subj)}${tag} ${bePastNeg(subj)} (${verb})`;
-        if (kind==="q")   return `${beQPast(person)} (${verb})`;
-      } else {
-        if (kind==="pos") return `${cap(subj)}${tag} will be (${verb})`;
-        if (kind==="neg") return `${cap(subj)}${tag} will not be (${verb})`;
-        if (kind==="q")   return `Will ${subj}${tag} be? (${verb})`;
-      }
-    } else {
-      // not used here
-      return `${cap(subj)}${tag} ${verb}`;
-    }
-  }
-  const is3 = s => (s==="he"||s==="she"||s==="it");
-  const cap = s => s ? s[0].toUpperCase()+s.slice(1) : s;
-  const doQHave = (s,t) => `${is3(s) ? 'Does' : 'Do'} ${s}${t} have?`;
-  const doNegHave = (s,t) => `${cap(s)}${t} ${is3(s) ? 'does' : 'do'} not have`;
-  const bePres = s => s==="I" ? "am" : (s==="you"||s==="we"||s==="they") ? "are" : "is";
-  const bePresNeg = s => s==="I" ? "am not" : bePres(s) + " not";
-  const beQPres = p => { const s = p.en, t = p.tag||""; if(s==="I")return"Am I?"; if(s==="you")return`Are you${t}?`; if(s==="we")return"Are we?"; if(s==="they")return"Are they?"; return `Is ${s}?`; };
-  const bePast = s => (s==="I"||s==="he"||s==="she"||s==="it") ? "was" : "were";
-  const bePastNeg = s => bePast(s)+" not";
-  const beQPast = p => { const s=p.en, t=p.tag||""; if(s==="I")return"Was I?"; if(s==="you")return`Were you${t}?`; if(s==="he"||s==="she"||s==="it")return`Was ${s}?`; return `Were ${s}?`; };
-
-  // ----- Timer & scoring -----
-  function startTimer(){
-    startTime = performance.now();
-    $("#timer").textContent = "Time: 0s";
+    // Timer
+    const timerEl = $("#timer");
+    startTime = Date.now();
     clearInterval(timerId);
-    timerId = setInterval(()=>{
-      const e = (performance.now() - startTime)/1000;
-      $("#timer").textContent = `Time: ${e.toFixed(1)}s`;
+    timerId = setInterval(()=> {
+      const s = (Date.now() - startTime)/1000;
+      timerEl.textContent = `Time: ${s.toFixed(1)}s`;
     }, 100);
-  }
-  function stopTimer(){ clearInterval(timerId); }
 
-  function checkAnswers(quiz){
-    stopTimer();
-    const inputs = $$("#questions .q input");
-    let correct = 0; const items = [];
-    inputs.forEach((inp,i)=>{
-      const expected = quiz[i].answer;
-      const ok = (quiz[i].answerList ? quiz[i].answerList.map(norm).includes(norm(inp.value)) : (norm(inp.value) === norm(expected)));
-      inp.classList.remove("good","bad"); inp.classList.add(ok ? "good" : "bad");
-      if (ok) correct++;
-      const li = document.createElement("li");
-      li.className = ok ? "correct" : "incorrect";
-      li.textContent = `${i+1}. ${quiz[i].prompt} → ${quiz[i].answer}`;
-      items.push(li);
-    });
-    const elapsed = (performance.now() - startTime)/1000;
-    const penalty = (quiz.length - correct) * CONFIG.PENALTY_SECONDS;
-    const finalTime = elapsed + penalty;
+    // Voice helpers
+    const auto = $("#auto-read"); const readAll = $("#read-all");
+    if (auto) auto.onchange = ()=>{};
+    if (readAll) readAll.onclick = ()=> quiz.forEach(q=> VOICE.speak(q.prompt.replace(/\s*\(.*\)\s*$/,''), 'en'));
 
-    if (currentMode) saveBest(currentTense, currentMode, finalTime);
+    // Submit grading
+    $("#submit").onclick = ()=>{
+      clearInterval(timerId);
+      const inputs = $$(".q input");
+      let correct = 0;
+      const resultsUl = document.createElement("ul");
+      const normExpected = a => a.map(norm);
 
-    const summary = document.createElement("div");
-    summary.className = "result-summary";
-    summary.innerHTML = [
-      `<div class="final-time">🏁 Final Time: ${finalTime.toFixed(1)}s</div>`,
-      `<div class="line">✅ Correct: ${correct}/${quiz.length}</div>`,
-      penalty>0 ? `<div class="line">⏱️ Penalty: +${penalty}s (${CONFIG.PENALTY_SECONDS}s per incorrect)</div>` : ``
-    ].join("");
+      quiz.forEach((q, i) => {
+        const given = norm(inputs[i].value);
+        const ok = given && normExpected(q.answers).includes(given);
+        if (ok) correct++;
 
-    const ul = document.createElement("ul"); items.forEach(li => ul.appendChild(li));
-    const results = $("#results"); results.innerHTML = ""; results.appendChild(summary); results.appendChild(ul);
+        const li = document.createElement("li");
+        li.innerHTML = ok
+          ? `<strong class="ok">✓ ${q.prompt}</strong> — ${q.answers[0]}`
+          : `<strong class="no">✗ ${q.prompt}</strong> — Your answer: <em>${inputs[i].value||"(blank)"}</em> · Correct: <strong>${q.answers[0]}</strong>`;
+        resultsUl.appendChild(li);
+      });
 
-    if (VOICE.enabled) VOICE.speak(`You got ${correct} out of ${quiz.length}. Final time ${finalTime.toFixed(1)} seconds.`, 'en');
+      const raw = (Date.now() - startTime)/1000;
+      const penalty = (CONFIG.QUESTIONS_PER_RUN - correct) * CONFIG.PENALTY_SECONDS;
+      const finalTime = raw + penalty;
 
-    $("#back-button").style.display = "inline-block";
-    $("#back-button").onclick = ()=>{ $("#game").style.display = "none"; $("#mode-list").style.display = "flex"; renderModes(); unlock('D2'); unlock('D3'); unlock('FRIDAY'); startMode('HOMEWORK'); };
+      const summary = document.createElement("p");
+      summary.innerHTML = `<strong>${correct}/${CONFIG.QUESTIONS_PER_RUN} correct</strong> · Raw: ${raw.toFixed(1)}s · Penalty: +${penalty}s · <strong>Total: ${finalTime.toFixed(1)}s</strong>`;
+
+      const results = $("#results"); results.innerHTML = ""; results.appendChild(summary); results.appendChild(resultsUl);
+
+      // Save best time per (tense, mode)
+      const best = getBest(currentTense, currentMode);
+      if (best == null || finalTime < best) saveBest(currentTense, currentMode, finalTime);
+
+      $("#back-button").style.display = "inline-block";
+      $("#back-button").onclick = ()=>{ $("#game").style.display = "none"; $("#mode-list").style.display = "flex"; renderModes(); };
+    };
   }
 
   function norm(s){
     return (s||"").toLowerCase()
       .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
-      .replace(/[¿?¡!]/g,"").replace(/\s+/g," ").trim();
+      .replace(/[¿?¡!]/g,"")
+      .replace(/\s+/g," ").trim();
   }
 
-  // ----- Best per (tense, mode) -----
-  function bestKey(tense, mode){ return `turbo_mtw_best_${CONFIG.title}_${tense}_${mode}`; }
-  function getBest(tense, mode){ const v = localStorage.getItem(bestKey(tense, mode)); return v ? parseFloat(v) : null; }
-  function saveBest(tense, mode, score){
-    const cur = getBest(tense, mode);
-    const best = (cur == null || score < cur) ? score : cur;
-    localStorage.setItem(bestKey(tense, mode), best.toString());
+  // ----- LOCAL BESTS -----
+  function keyBest(tense, mode){ return `turbo_mtw_best_${CONFIG.title}_${tense}_${mode}`; }
+  function getBest(tense, mode){
+    const v = localStorage.getItem(keyBest(tense, mode));
+    return v ? parseFloat(v) : null;
   }
+  function saveBest(tense, mode, seconds){ localStorage.setItem(keyBest(tense, mode), String(seconds)); }
 
-  function setTenseButtons(){
-    $$(".tense-button").forEach(b=>{
-      b.classList.toggle("active", b.dataset.tense === currentTense);
-      b.onclick = ()=>{ currentTense = b.dataset.tense; $$(".tense-button").forEach(x=>x.classList.remove("active")); b.classList.add("active"); renderModes(); unlock('D2'); unlock('D3'); unlock('FRIDAY'); startMode('HOMEWORK'); };
-    });
-  }
-
-  function renderModes(){
-    const host = $("#mode-list"); host.innerHTML = "";
-    host.appendChild(makeModeBtn("HOMEWORK", "Homework Tonight (All unlocked days)"));
-    host.appendChild(makeModeBtn("D1", CONFIG.days.D1.label));
-    host.appendChild(makeModeBtn("D2", CONFIG.days.D2.label));
-    host.appendChild(makeModeBtn("D3", CONFIG.days.D3.label));
-    host.appendChild(makeModeBtn("FRIDAY", "Friday Test (All week) — unlocks from Wednesday"));
-  }
+  // Init
+  VOICE.init();
+  renderModes();
 
   function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } }
-
 })();
