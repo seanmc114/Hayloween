@@ -6,7 +6,7 @@
   <title>TURBO: MTW Sample (Ser/Tener/Estar)</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* Hide the old landing controls so they never block play */
+    /* Hide the dead landing bits so they never block play */
     #tense-buttons, #unlock-bar { display: none !important; }
   </style>
 </head>
@@ -28,8 +28,10 @@
       <span id="codeMsg" aria-live="polite"></span>
     </div>
 
+    <!-- This shows your game’s mode buttons (Homework, Mon/Tue/Wed, Friday) -->
     <div id="mode-list" class="modes"></div>
 
+    <!-- Game screen (shown after you pick a mode) -->
     <div id="game" style="display:none;">
       <div id="timer" aria-live="polite">Time: 0s</div>
 
@@ -52,19 +54,8 @@
     </div>
   </div>
 
+  <!-- Your existing logic; no changes needed -->
   <script src="script.js"></script>
-
-  <!-- Auto-start the game and unlock days; no landing, straight to play -->
-  <script>
-  (function () {
-    // Make sure the menu never blocks: go straight into Homework (all unlocked days)
-    try { unlock('D2'); unlock('D3'); unlock('FRIDAY'); } catch (e) {}
-    try { startMode('HOMEWORK'); } catch (e) {
-      // Fallback: show game area even if something delays init
-      var ml = document.getElementById('mode-list'); if (ml) ml.style.display = 'none';
-      var g  = document.getElementById('game');      if (g)  g.style.display  = 'block';
-    }
-  })();
-  </script>
+  <!-- No auto-start here: students will land on the menu and choose a mode -->
 </body>
 </html>
