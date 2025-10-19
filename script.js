@@ -6,12 +6,11 @@
   const CONFIG = {
     title: "Hayloween",
     // Sample codes — change these in production
-    codes: {},
+    codes: { D2: "MTW-D2-OPEN", D3: "MTW-D3-OPEN", FRIDAY: "MTW-FRI-OPEN" },
     days: {
-      D1: { label: "Monday — Halloween vocab (1st years)" },
-      D2: { label: "Tuesday — Numbers 1–20" },
-      D3: { label: "Wednesday — Hay + numbers + Halloween (pos/neg/questions)" },
-      D4: { label: "Friday — Mixed review (all)" }
+      D1: { label: "Monday — Days & Relative Days" },
+      D2: { label: "Tuesday — School Subjects A" },
+      D3: { label: "Wednesday — School Subjects B" }
     },
     QUESTIONS_PER_RUN: 10,
     PENALTY_SECONDS: 30
@@ -50,124 +49,39 @@
   // ----- PHRASES for Days & School Subjects -----
   const PHRASES = {
     D1: [
-      {en:"Pumpkin", es:["calabaza"]},
-      {en:"Ghost", es:["fantasma"]},
-      {en:"Witch", es:["bruja"]},
-      {en:"Vampire", es:["vampiro"]},
-      {en:"Skeleton", es:["esqueleto"]},
-      {en:"Spider", es:["ara\u00f1a", "arana"]},
-      {en:"Bat", es:["murci\u00e9lago", "murcielago"]},
-      {en:"Black cat", es:["gato negro"]},
-      {en:"Costume", es:["disfraz"]},
-      {en:"Haunted house", es:["casa embrujada"]},
-      {en:"Candy", es:["caramelo", "dulce", "chuche", "golosina"]},
-      {en:"Monster", es:["monstruo"]},
-      {en:"Mummy", es:["momia"]},
-      {en:"Broom", es:["escoba"]},
-      {en:"Mask", es:["m\u00e1scara", "mascara"]},
-      {en:"Zombie", es:["zombi", "zombie"]},
-      {en:"Skull", es:["calavera"]},
-      {en:"Lantern", es:["farol"]},
-      {en:"Scarecrow", es:["espantap\u00e1jaros", "espantapajaros"]},
-      {en:"Trick or treat", es:["truco o trato"]}
+      {en:"Monday", es:["lunes"]},
+      {en:"Tuesday", es:["martes"]},
+      {en:"Wednesday", es:["miércoles","miercoles"]},
+      {en:"Thursday", es:["jueves"]},
+      {en:"Friday", es:["viernes"]},
+      {en:"Saturday", es:["sábado","sabado"]},
+      {en:"Sunday", es:["domingo"]},
+      {en:"Today", es:["hoy"]},
+      {en:"Tomorrow", es:["mañana","manana"]},
+      {en:"Yesterday", es:["ayer"]},
+      {en:"The day before yesterday", es:["anteayer"]},
+      {en:"The day after tomorrow", es:["pasado mañana","pasado manana"]}
     ],
     D2: [
-      {en:"one", es:["uno"]},
-      {en:"two", es:["dos"]},
-      {en:"three", es:["tres"]},
-      {en:"four", es:["cuatro"]},
-      {en:"five", es:["cinco"]},
-      {en:"six", es:["seis"]},
-      {en:"seven", es:["siete"]},
-      {en:"eight", es:["ocho"]},
-      {en:"nine", es:["nueve"]},
-      {en:"ten", es:["diez"]},
-      {en:"eleven", es:["once"]},
-      {en:"twelve", es:["doce"]},
-      {en:"thirteen", es:["trece"]},
-      {en:"fourteen", es:["catorce"]},
-      {en:"fifteen", es:["quince"]},
-      {en:"sixteen", es:["diecis\u00e9is", "dieciseis"]},
-      {en:"seventeen", es:["diecisiete"]},
-      {en:"eighteen", es:["dieciocho"]},
-      {en:"nineteen", es:["diecinueve"]},
-      {en:"twenty", es:["veinte"]}
+      {en:"English (subject)", es:["inglés","ingles"]},
+      {en:"Irish (subject)", es:["irlandés","irlandes","gaélico","gaelico","gaélico irlandés","gaelico irlandes"]},
+      {en:"Maths", es:["matemáticas","matematicas","mates"]},
+      {en:"Spanish", es:["español","espanol","castellano"]},
+      {en:"French", es:["francés","frances"]},
+      {en:"History", es:["historia"]},
+      {en:"Geography", es:["geografía","geografia"]},
+      {en:"P.E.", es:["educación física","educacion fisica"]},
+      {en:"German", es:["alemán","aleman"]},
+      {en:"Science", es:["ciencias","ciencia"]}
     ],
     D3: [
-      {en:"There is a pumpkin", es:["hay una calabaza"]},
-      {en:"There are two pumpkins", es:["hay dos calabazas"]},
-      {en:"There are three ghosts", es:["hay tres fantasmas"]},
-      {en:"There is a witch", es:["hay una bruja"]},
-      {en:"There is a black cat", es:["hay un gato negro"]},
-      {en:"There are five spiders", es:["hay cinco ara\u00f1as", "hay cinco aranas"]},
-      {en:"There are four bats", es:["hay cuatro murci\u00e9lagos", "hay cuatro murcielagos"]},
-      {en:"There are ten candies", es:["hay diez caramelos", "hay diez dulces"]},
-      {en:"There isn't a vampire", es:["no hay un vampiro"]},
-      {en:"There aren't two mummies", es:["no hay dos momias"]},
-      {en:"There isn't a skull", es:["no hay una calavera"]},
-      {en:"There aren't three monsters", es:["no hay tres monstruos"]},
-      {en:"Is there a pumpkin?", es:["hay una calabaza"]},
-      {en:"Are there two ghosts?", es:["hay dos fantasmas"]},
-      {en:"Is there a witch?", es:["hay una bruja"]},
-      {en:"Are there seven spiders?", es:["hay siete ara\u00f1as", "hay siete aranas"]}
-    ],
-    D4: [
-      {en:"Pumpkin", es:["calabaza"]},
-      {en:"Ghost", es:["fantasma"]},
-      {en:"Witch", es:["bruja"]},
-      {en:"Vampire", es:["vampiro"]},
-      {en:"Skeleton", es:["esqueleto"]},
-      {en:"Spider", es:["ara\u00f1a", "arana"]},
-      {en:"Bat", es:["murci\u00e9lago", "murcielago"]},
-      {en:"Black cat", es:["gato negro"]},
-      {en:"Costume", es:["disfraz"]},
-      {en:"Haunted house", es:["casa embrujada"]},
-      {en:"Candy", es:["caramelo", "dulce", "chuche", "golosina"]},
-      {en:"Monster", es:["monstruo"]},
-      {en:"Mummy", es:["momia"]},
-      {en:"Broom", es:["escoba"]},
-      {en:"Mask", es:["m\u00e1scara", "mascara"]},
-      {en:"Zombie", es:["zombi", "zombie"]},
-      {en:"Skull", es:["calavera"]},
-      {en:"Lantern", es:["farol"]},
-      {en:"Scarecrow", es:["espantap\u00e1jaros", "espantapajaros"]},
-      {en:"Trick or treat", es:["truco o trato"]},
-      {en:"one", es:["uno"]},
-      {en:"two", es:["dos"]},
-      {en:"three", es:["tres"]},
-      {en:"four", es:["cuatro"]},
-      {en:"five", es:["cinco"]},
-      {en:"six", es:["seis"]},
-      {en:"seven", es:["siete"]},
-      {en:"eight", es:["ocho"]},
-      {en:"nine", es:["nueve"]},
-      {en:"ten", es:["diez"]},
-      {en:"eleven", es:["once"]},
-      {en:"twelve", es:["doce"]},
-      {en:"thirteen", es:["trece"]},
-      {en:"fourteen", es:["catorce"]},
-      {en:"fifteen", es:["quince"]},
-      {en:"sixteen", es:["diecis\u00e9is", "dieciseis"]},
-      {en:"seventeen", es:["diecisiete"]},
-      {en:"eighteen", es:["dieciocho"]},
-      {en:"nineteen", es:["diecinueve"]},
-      {en:"twenty", es:["veinte"]},
-      {en:"There is a pumpkin", es:["hay una calabaza"]},
-      {en:"There are two pumpkins", es:["hay dos calabazas"]},
-      {en:"There are three ghosts", es:["hay tres fantasmas"]},
-      {en:"There is a witch", es:["hay una bruja"]},
-      {en:"There is a black cat", es:["hay un gato negro"]},
-      {en:"There are five spiders", es:["hay cinco ara\u00f1as", "hay cinco aranas"]},
-      {en:"There are four bats", es:["hay cuatro murci\u00e9lagos", "hay cuatro murcielagos"]},
-      {en:"There are ten candies", es:["hay diez caramelos", "hay diez dulces"]},
-      {en:"There isn't a vampire", es:["no hay un vampiro"]},
-      {en:"There aren't two mummies", es:["no hay dos momias"]},
-      {en:"There isn't a skull", es:["no hay una calavera"]},
-      {en:"There aren't three monsters", es:["no hay tres monstruos"]},
-      {en:"Is there a pumpkin?", es:["hay una calabaza"]},
-      {en:"Are there two ghosts?", es:["hay dos fantasmas"]},
-      {en:"Is there a witch?", es:["hay una bruja"]},
-      {en:"Are there seven spiders?", es:["hay siete ara\u00f1as", "hay siete aranas"]}
+      {en:"Business", es:["negocios","empresa","estudios empresariales"]},
+      {en:"Art", es:["arte","educación plástica","educacion plastica"]},
+      {en:"Physics", es:["física","fisica"]},
+      {en:"Biology", es:["biología","biologia"]},
+      {en:"IT", es:["informática","informatica","tecnología","tecnologia","computación","computacion","tic"]},
+      {en:"CSPE (Civics)", es:["educación cívica","educacion civica","ciudadanía","ciudadania","educación para la ciudadanía","educacion para la ciudadania"]},
+      {en:"Religion", es:["religión","religion"]}
     ]
   };
 // ----- DB -----
@@ -203,16 +117,24 @@
   document.title = `TURBO: ${CONFIG.title}`;
   $("h1").innerHTML = `<span class="turbo">TURBO</span>: ${CONFIG.title}`;
 
-  setTenseButtons();
+  try{ setTenseButtons(); }catch(e){}
   $("#codeBtn").onclick = handleCode;
-  renderModes();
+  renderModes(); unlock('D2'); unlock('D3'); unlock('FRIDAY'); startMode('HOMEWORK');
 
   // ----- Unlock state -----
   function keyUnlocked(day){ return `turbo_mtw_unlocked_${CONFIG.title}_${day}`; }
-  function isUnlocked(day){ return true; }
+  function isUnlocked(day){
+    if (day === "D1") return true;      // Monday always open
+    if (day === "HOMEWORK") return true;
+    const v = localStorage.getItem(keyUnlocked(day));
+    return v === "1";
+  }
   function unlock(day){ localStorage.setItem(keyUnlocked(day), "1"); }
 
-  function handleCode(){ /* no-op */ const m=document.getElementById("codeMsg"); if(m) m.textContent="All modes unlocked."; };
+  function handleCode(){
+    const code = ($("#codeInput").value || "").trim();
+    const msg = $("#codeMsg");
+    const map = CONFIG.codes || {};
     let matched = null;
     for (const [day, c] of Object.entries(map)) { if (c === code) { matched = day; break; } }
     if (!matched) { msg.textContent = "❌ Code not recognised"; return; }
@@ -224,7 +146,7 @@
       if (isUnlocked("D2") && isUnlocked("D3")) unlock("FRIDAY");
       msg.textContent = `✅ ${CONFIG.days[matched]?.label || matched} unlocked`;
     }
-    renderModes();
+    renderModes(); unlock('D2'); unlock('D3'); unlock('FRIDAY'); startMode('HOMEWORK');
     $("#codeInput").value = "";
   }
 
@@ -422,7 +344,7 @@
     if (VOICE.enabled) VOICE.speak(`You got ${correct} out of ${quiz.length}. Final time ${finalTime.toFixed(1)} seconds.`, 'en');
 
     $("#back-button").style.display = "inline-block";
-    $("#back-button").onclick = ()=>{ $("#game").style.display = "none"; $("#mode-list").style.display = "flex"; renderModes(); };
+    $("#back-button").onclick = ()=>{ $("#game").style.display = "none"; $("#mode-list").style.display = "flex"; renderModes(); unlock('D2'); unlock('D3'); unlock('FRIDAY'); startMode('HOMEWORK'); };
   }
 
   function norm(s){
@@ -443,7 +365,7 @@
   function setTenseButtons(){
     $$(".tense-button").forEach(b=>{
       b.classList.toggle("active", b.dataset.tense === currentTense);
-      b.onclick = ()=>{ currentTense = b.dataset.tense; $$(".tense-button").forEach(x=>x.classList.remove("active")); b.classList.add("active"); renderModes(); };
+      b.onclick = ()=>{ currentTense = b.dataset.tense; $$(".tense-button").forEach(x=>x.classList.remove("active")); b.classList.add("active"); renderModes(); unlock('D2'); unlock('D3'); unlock('FRIDAY'); startMode('HOMEWORK'); };
     });
   }
 
