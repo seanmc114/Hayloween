@@ -6,11 +6,12 @@
   const CONFIG = {
     title: "Hayloween",
     // Sample codes — change these in production
-    codes: { D2: "MTW-D2-OPEN", D3: "MTW-D3-OPEN", FRIDAY: "MTW-FRI-OPEN" },
+    codes: {},
     days: {
-      D1: { label: "Monday — Days & Relative Days" },
-      D2: { label: "Tuesday — School Subjects A" },
-      D3: { label: "Wednesday — School Subjects B" }
+      D1: { label: "Monday — Halloween vocab (1st years)" },
+      D2: { label: "Tuesday — Numbers 1–20" },
+      D3: { label: "Wednesday — Hay + numbers + Halloween (pos/neg/questions)" },
+      D4: { label: "Friday — Mixed review (all)" }
     },
     QUESTIONS_PER_RUN: 10,
     PENALTY_SECONDS: 30
@@ -48,71 +49,127 @@
   
   // ----- PHRASES for Days & School Subjects -----
   const PHRASES = {
-  // HALLOWEEN + HAY/NO HAY + NUMBERS (1–20)
-const PHRASES = {
-  // D1 — Core Halloween vocab (single words / noun phrases)
-  D1: [
-    { en: "pumpkin",            es: ["calabaza"] },
-    { en: "ghost",              es: ["fantasma"] },
-    { en: "witch",              es: ["bruja"] },
-    { en: "skeleton",           es: ["esqueleto"] },
-    { en: "monster",            es: ["monstruo"] },
-    { en: "vampire",            es: ["vampiro"] },
-    { en: "zombie",             es: ["zombi","zombie"] },
-    { en: "bat",                es: ["murciélago","murcielago"] },
-    { en: "black cat",          es: ["gato negro"] },
-    { en: "spider",             es: ["araña","arana"] },
-    { en: "spider web",         es: ["telaraña","telarana"] },
-    { en: "candle",             es: ["vela"] },
-    { en: "mask",               es: ["máscara","mascara"] },
-    { en: "potion",             es: ["poción","pocion"] },
-    { en: "broom",              es: ["escoba"] },
-    { en: "costume",            es: ["disfraz"] },
-    { en: "haunted house",      es: ["casa encantada"] },
-    { en: "tombstone",          es: ["lápida","lapida"] },
-    { en: "graveyard",          es: ["cementerio"] },
-    { en: "cauldron",           es: ["caldero"] }
-  ],
-
-  // D2 — Hay / No hay sentences (juniors-friendly, singular & small plurals)
-  D2: [
-    { en: "There is a pumpkin.",                  es: ["Hay una calabaza."] },
-    { en: "There isn’t a ghost.",                 es: ["No hay un fantasma."] },
-    { en: "There is a witch at the door.",        es: ["Hay una bruja en la puerta."] },
-    { en: "There isn’t a monster here.",          es: ["No hay un monstruo aquí.","No hay un monstruo aqui"] },
-    { en: "There are two spiders.",               es: ["Hay dos arañas.","Hay 2 arañas","Hay dos aranas","Hay 2 aranas"] },
-    { en: "There aren’t three bats.",             es: ["No hay tres murciélagos.","No hay 3 murciélagos","No hay tres murcielagos","No hay 3 murcielagos"] },
-    { en: "There are four candles on the table.", es: ["Hay cuatro velas en la mesa.","Hay 4 velas en la mesa"] },
-    { en: "There isn’t a vampire in the room.",   es: ["No hay un vampiro en la habitación.","No hay un vampiro en la habitacion"] },
-    { en: "There are five ghosts.",               es: ["Hay cinco fantasmas.","Hay 5 fantasmas"] },
-    { en: "There aren’t six zombies.",            es: ["No hay seis zombis.","No hay 6 zombis","No hay seis zombies","No hay 6 zombies"] }
-  ],
-
-  // D3 — Numbers 1–20 (words; with accentless fallbacks where needed)
-  D3: [
-    { en: "one (1)",        es: ["uno"] },
-    { en: "two (2)",        es: ["dos"] },
-    { en: "three (3)",      es: ["tres"] },
-    { en: "four (4)",       es: ["cuatro"] },
-    { en: "five (5)",       es: ["cinco"] },
-    { en: "six (6)",        es: ["seis"] },
-    { en: "seven (7)",      es: ["siete"] },
-    { en: "eight (8)",      es: ["ocho"] },
-    { en: "nine (9)",       es: ["nueve"] },
-    { en: "ten (10)",       es: ["diez"] },
-    { en: "eleven (11)",    es: ["once"] },
-    { en: "twelve (12)",    es: ["doce"] },
-    { en: "thirteen (13)",  es: ["trece"] },
-    { en: "fourteen (14)",  es: ["catorce"] },
-    { en: "fifteen (15)",   es: ["quince"] },
-    { en: "sixteen (16)",   es: ["dieciséis","dieciseis"] },
-    { en: "seventeen (17)", es: ["diecisiete"] },
-    { en: "eighteen (18)",  es: ["dieciocho"] },
-    { en: "nineteen (19)",  es: ["diecinueve"] },
-    { en: "twenty (20)",    es: ["veinte"] }
-  ]
-};
-
+    D1: [
+      {en:"Pumpkin", es:["calabaza"]},
+      {en:"Ghost", es:["fantasma"]},
+      {en:"Witch", es:["bruja"]},
+      {en:"Vampire", es:["vampiro"]},
+      {en:"Skeleton", es:["esqueleto"]},
+      {en:"Spider", es:["ara\u00f1a", "arana"]},
+      {en:"Bat", es:["murci\u00e9lago", "murcielago"]},
+      {en:"Black cat", es:["gato negro"]},
+      {en:"Costume", es:["disfraz"]},
+      {en:"Haunted house", es:["casa embrujada"]},
+      {en:"Candy", es:["caramelo", "dulce", "chuche", "golosina"]},
+      {en:"Monster", es:["monstruo"]},
+      {en:"Mummy", es:["momia"]},
+      {en:"Broom", es:["escoba"]},
+      {en:"Mask", es:["m\u00e1scara", "mascara"]},
+      {en:"Zombie", es:["zombi", "zombie"]},
+      {en:"Skull", es:["calavera"]},
+      {en:"Lantern", es:["farol"]},
+      {en:"Scarecrow", es:["espantap\u00e1jaros", "espantapajaros"]},
+      {en:"Trick or treat", es:["truco o trato"]}
+    ],
+    D2: [
+      {en:"one", es:["uno"]},
+      {en:"two", es:["dos"]},
+      {en:"three", es:["tres"]},
+      {en:"four", es:["cuatro"]},
+      {en:"five", es:["cinco"]},
+      {en:"six", es:["seis"]},
+      {en:"seven", es:["siete"]},
+      {en:"eight", es:["ocho"]},
+      {en:"nine", es:["nueve"]},
+      {en:"ten", es:["diez"]},
+      {en:"eleven", es:["once"]},
+      {en:"twelve", es:["doce"]},
+      {en:"thirteen", es:["trece"]},
+      {en:"fourteen", es:["catorce"]},
+      {en:"fifteen", es:["quince"]},
+      {en:"sixteen", es:["diecis\u00e9is", "dieciseis"]},
+      {en:"seventeen", es:["diecisiete"]},
+      {en:"eighteen", es:["dieciocho"]},
+      {en:"nineteen", es:["diecinueve"]},
+      {en:"twenty", es:["veinte"]}
+    ],
+    D3: [
+      {en:"There is a pumpkin", es:["hay una calabaza"]},
+      {en:"There are two pumpkins", es:["hay dos calabazas"]},
+      {en:"There are three ghosts", es:["hay tres fantasmas"]},
+      {en:"There is a witch", es:["hay una bruja"]},
+      {en:"There is a black cat", es:["hay un gato negro"]},
+      {en:"There are five spiders", es:["hay cinco ara\u00f1as", "hay cinco aranas"]},
+      {en:"There are four bats", es:["hay cuatro murci\u00e9lagos", "hay cuatro murcielagos"]},
+      {en:"There are ten candies", es:["hay diez caramelos", "hay diez dulces"]},
+      {en:"There isn't a vampire", es:["no hay un vampiro"]},
+      {en:"There aren't two mummies", es:["no hay dos momias"]},
+      {en:"There isn't a skull", es:["no hay una calavera"]},
+      {en:"There aren't three monsters", es:["no hay tres monstruos"]},
+      {en:"Is there a pumpkin?", es:["hay una calabaza"]},
+      {en:"Are there two ghosts?", es:["hay dos fantasmas"]},
+      {en:"Is there a witch?", es:["hay una bruja"]},
+      {en:"Are there seven spiders?", es:["hay siete ara\u00f1as", "hay siete aranas"]}
+    ],
+    D4: [
+      {en:"Pumpkin", es:["calabaza"]},
+      {en:"Ghost", es:["fantasma"]},
+      {en:"Witch", es:["bruja"]},
+      {en:"Vampire", es:["vampiro"]},
+      {en:"Skeleton", es:["esqueleto"]},
+      {en:"Spider", es:["ara\u00f1a", "arana"]},
+      {en:"Bat", es:["murci\u00e9lago", "murcielago"]},
+      {en:"Black cat", es:["gato negro"]},
+      {en:"Costume", es:["disfraz"]},
+      {en:"Haunted house", es:["casa embrujada"]},
+      {en:"Candy", es:["caramelo", "dulce", "chuche", "golosina"]},
+      {en:"Monster", es:["monstruo"]},
+      {en:"Mummy", es:["momia"]},
+      {en:"Broom", es:["escoba"]},
+      {en:"Mask", es:["m\u00e1scara", "mascara"]},
+      {en:"Zombie", es:["zombi", "zombie"]},
+      {en:"Skull", es:["calavera"]},
+      {en:"Lantern", es:["farol"]},
+      {en:"Scarecrow", es:["espantap\u00e1jaros", "espantapajaros"]},
+      {en:"Trick or treat", es:["truco o trato"]},
+      {en:"one", es:["uno"]},
+      {en:"two", es:["dos"]},
+      {en:"three", es:["tres"]},
+      {en:"four", es:["cuatro"]},
+      {en:"five", es:["cinco"]},
+      {en:"six", es:["seis"]},
+      {en:"seven", es:["siete"]},
+      {en:"eight", es:["ocho"]},
+      {en:"nine", es:["nueve"]},
+      {en:"ten", es:["diez"]},
+      {en:"eleven", es:["once"]},
+      {en:"twelve", es:["doce"]},
+      {en:"thirteen", es:["trece"]},
+      {en:"fourteen", es:["catorce"]},
+      {en:"fifteen", es:["quince"]},
+      {en:"sixteen", es:["diecis\u00e9is", "dieciseis"]},
+      {en:"seventeen", es:["diecisiete"]},
+      {en:"eighteen", es:["dieciocho"]},
+      {en:"nineteen", es:["diecinueve"]},
+      {en:"twenty", es:["veinte"]},
+      {en:"There is a pumpkin", es:["hay una calabaza"]},
+      {en:"There are two pumpkins", es:["hay dos calabazas"]},
+      {en:"There are three ghosts", es:["hay tres fantasmas"]},
+      {en:"There is a witch", es:["hay una bruja"]},
+      {en:"There is a black cat", es:["hay un gato negro"]},
+      {en:"There are five spiders", es:["hay cinco ara\u00f1as", "hay cinco aranas"]},
+      {en:"There are four bats", es:["hay cuatro murci\u00e9lagos", "hay cuatro murcielagos"]},
+      {en:"There are ten candies", es:["hay diez caramelos", "hay diez dulces"]},
+      {en:"There isn't a vampire", es:["no hay un vampiro"]},
+      {en:"There aren't two mummies", es:["no hay dos momias"]},
+      {en:"There isn't a skull", es:["no hay una calavera"]},
+      {en:"There aren't three monsters", es:["no hay tres monstruos"]},
+      {en:"Is there a pumpkin?", es:["hay una calabaza"]},
+      {en:"Are there two ghosts?", es:["hay dos fantasmas"]},
+      {en:"Is there a witch?", es:["hay una bruja"]},
+      {en:"Are there seven spiders?", es:["hay siete ara\u00f1as", "hay siete aranas"]}
+    ]
+  };
 // ----- DB -----
   const DB = {
     ser:{present:["soy","eres","es","es","somos","sois","son"],
@@ -155,10 +212,7 @@ const PHRASES = {
   function isUnlocked(day){ return true; }
   function unlock(day){ localStorage.setItem(keyUnlocked(day), "1"); }
 
-  function handleCode(){
-    const code = ($("#codeInput").value || "").trim();
-    const msg = $("#codeMsg");
-    const map = CONFIG.codes || {};
+  function handleCode(){ /* no-op */ const m=document.getElementById("codeMsg"); if(m) m.textContent="All modes unlocked."; };
     let matched = null;
     for (const [day, c] of Object.entries(map)) { if (c === code) { matched = day; break; } }
     if (!matched) { msg.textContent = "❌ Code not recognised"; return; }
